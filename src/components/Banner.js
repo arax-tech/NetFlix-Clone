@@ -42,6 +42,10 @@ const Banner = () => {
             setIsOpen(true);
             movieTrailer(movie?.name || "")
                 .then((url) => {
+                    if (url === null) {
+                        alert("Invalid movie url...")
+                        setIsOpen(false);
+                    }
                     const urlParams = new URLSearchParams(new URL(url).search);
                     setTrailerUrl(urlParams.get('v'));
                 }).catch((error) => console.log(error))

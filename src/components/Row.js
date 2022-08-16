@@ -27,17 +27,19 @@ const Row = ({ title, fetchUrl, isLarageRow }) => {
     };
     const handelClick = (movie) => {
 
-        if (trailerUrl) {
-            setTrailerUrl("");
-            setIsOpen(false);
-        } else {
-            setIsOpen(true);
-            movieTrailer(movie?.name || "")
-                .then((url) => {
-                    const urlParams = new URLSearchParams(new URL(url).search);
-                    setTrailerUrl(urlParams.get('v'));
-                }).catch((error) => console.log(error))
-        }
+
+        setIsOpen(true);
+        movieTrailer(movie?.name || "")
+            .then((url) => {
+                console.log(url);
+                if (url === null) {
+                    alert("Invalid movie url...")
+                    setIsOpen(false);
+                }
+                const urlParams = new URLSearchParams(new URL(url).search);
+                setTrailerUrl(urlParams.get('v'));
+            }).catch((error) => console.log(error))
+
 
     }
 
